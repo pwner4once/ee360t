@@ -1,3 +1,5 @@
+package pset1;
+
 public class C { 
   int max(int x, int y){
     if (x < y){
@@ -5,6 +7,12 @@ public class C {
     } else {
       return x;
     }
+
+  }
+
+  public void stuff(){
+    int b;
   }
 }
+
 

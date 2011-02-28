@@ -1,14 +1,14 @@
 package pset1;
-import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import org.apache.bcel.classfile.JavaClass;
+import org.apache.bcel.classfile.Method;
 
 public class CFG {
-  Set<Node> nodes = new HashSet<Node>();
-  Map<Node, Set<Node>> edges = new HashMap<Node, Set<Node>>();
+  public Set<Node> nodes = new HashSet<Node>();
+  public Map<Node, Set<Node>> edges = new HashMap<Node, Set<Node>>();
 
   static class Node {
     int position;
@@ -38,9 +38,21 @@ public class CFG {
   public void addNode(int p, Method m, JavaClass c){
     Node node = new Node(p, m, c);
     
+    if (nodes.contains(node))
+    	return;
+    
     // add new node to nodes.
-    if (!nodes.contains(node)){ 
-      nodes.add(node);
+    // stupid .contains function doesn't work??
+    boolean contains = false;
+    for (Object o: nodes.toArray()) {
+    	Node n = (Node)o;
+    	if (n.equals(node)){
+    		contains = true;
+    	}
+	}
+    
+    if (!contains){
+    	nodes.add(node);
     }
     
     // edges business
@@ -58,7 +70,10 @@ public class CFG {
                       int p2, Method m2, JavaClass c2){
     this.addNode(p1, m1, c1);
     this.addNode(p2, m2, c2);
-    this.edges.get(new Node(p1,m1,c1)).add(new Node(p2,m2,c2));
+    Node n = new Node(p1,m2,c1);
+    
+    Set<Node> sn = this.edges.get(n);
+//    this.edges.get(new Node(p1,m1,c1)).add(new Node(p2,m2,c2));
   }
   
   public boolean isReachable(int p1, Method m1, JavaClass c1,

@@ -2,15 +2,12 @@ package pset1;
 
 import org.junit.Test;
 
-import com.sun.org.apache.bcel.internal.classfile.Method;
+import org.apache.bcel.classfile.*;
 
 
 public class CFGTest {
 
 	@Test
 	public void addNodeTest(){
-		CFG cfg = new CFG();
-		Method m  = new Method();
-		m.
 	}
 }
