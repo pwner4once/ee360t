@@ -7,12 +7,5 @@ public class C {
     } else {
       return x;
     }
-
-  }
-
-  public void stuff(){
-    int b;
   }
 }
-
-

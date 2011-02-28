@@ -9,6 +9,7 @@ import org.apache.bcel.generic.INVOKEVIRTUAL;
 import org.apache.bcel.generic.Instruction;
 import org.apache.bcel.generic.InstructionHandle;
 import org.apache.bcel.generic.InstructionList;
+import org.apache.bcel.generic.InstructionTargeter;
 import org.apache.bcel.generic.MethodGen;
 import org.apache.bcel.generic.BranchInstruction;
 
@@ -32,11 +33,19 @@ public class GraphGenerator {
         // adding edges to instructions/nodes
         // ignore branching instructions (jsr[_w], *switch)
         InstructionHandle instr_next = ih.getNext();
-        int nextPosition = instr_next.getPosition();
-        if (!((instr instanceof BranchInstruction) || (instr instanceof INVOKEVIRTUAL))){
-        	cfg.addEdge(position, m, jc, ih.getNext().getPosition(), m, jc);
+        
+        // if statement
+        BranchInstruction bi = null;
+        if (instr.toString().indexOf("if") != -1){
+        	bi = (BranchInstruction) instr;
+        	InstructionHandle if_ih = bi.getTarget();
+        	cfg.addEdge(position, m, jc, if_ih.getPosition(), m, jc);
         }
         
+        if (instr_next != null){
+            int nextPosition = instr_next.getPosition();
+            cfg.addEdge(position, m, jc, nextPosition, m, jc);
+        }
       }
     }
     
@@ -44,6 +53,7 @@ public class GraphGenerator {
   }
 
   public static void main(String[] a ) throws ClassNotFoundException {
-    new GraphGenerator().createCFG("pset1.C");
+    CFG cfg = new GraphGenerator().createCFG("pset1.Test2");
+    cfg.printDB();
   }
 }

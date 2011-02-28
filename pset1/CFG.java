@@ -10,31 +10,39 @@ public class CFG {
   public Set<Node> nodes = new HashSet<Node>();
   public Map<Node, Set<Node>> edges = new HashMap<Node, Set<Node>>();
 
+  
   static class Node {
-    int position;
-    Method method;
-    JavaClass clazz;
+	    int position;
+	    Method method;
+	    JavaClass clazz;
 
-    Node(int p, Method m, JavaClass c) {
-      position = p;
-      method = m;
-      clazz = c;
-    }
+	    Node(int p, Method m, JavaClass c) {
+	      position = p;
+	      method = m;
+	      clazz = c;
+	    }
 
-    public boolean equals(Object o){
-      if (!(o instanceof Node)) return false;
-      Node n = (Node) o;
+	    public boolean equals(Object o){
+	      if (!(o instanceof Node)) return false;
+	      Node n = (Node) o;
 
-      return (position == n.position) &&
-              method.equals(n.method) && clazz.equals(n.clazz);
-    }
+	      return (position == n.position) &&
+	              method.equals(n.method) && clazz.equals(n.clazz);
+	    }
 
-    public int hashCode(){
-      return position += method.hashCode() + clazz.hashCode();
-    }
+	    public int hashCode(){
+	      return position + method.hashCode() + clazz.hashCode();
+	    }
+	    
+	    public String toString(){
+	    	return clazz.getClassName() + "." + 
+	    	method.getName() + method.getSignature() + ": " + position;
+	    }
+	    
+	    
 
-  }
-
+	  }
+  
   public void addNode(int p, Method m, JavaClass c){
     Node node = new Node(p, m, c);
     
@@ -42,18 +50,7 @@ public class CFG {
     	return;
     
     // add new node to nodes.
-    // stupid .contains function doesn't work??
-    boolean contains = false;
-    for (Object o: nodes.toArray()) {
-    	Node n = (Node)o;
-    	if (n.equals(node)){
-    		contains = true;
-    	}
-	}
-    
-    if (!contains){
-    	nodes.add(node);
-    }
+    nodes.add(node);
     
     // edges business
     if (edges.containsKey(node)){
@@ -73,7 +70,7 @@ public class CFG {
     Node n = new Node(p1,m2,c1);
     
     Set<Node> sn = this.edges.get(n);
-//    this.edges.get(new Node(p1,m1,c1)).add(new Node(p2,m2,c2));
+    sn.add(new Node(p2,m2,c2));
   }
   
   public boolean isReachable(int p1, Method m1, JavaClass c1,
@@ -91,11 +88,10 @@ public class CFG {
       return false;
     }
     
-    // keep track of visited nodes so I don't go in circles..
+    // track visited nodes so I don't go in circles..
     visitedNodes.add(curNode);
     Set<Node> childrenNodes = edges.get(curNode);
     
-    // base case..?
     if (childrenNodes.contains(targetNode)){
       return true; // found target node..
     }
@@ -110,5 +106,15 @@ public class CFG {
     }
     
     return hashResult;
+  }
+  
+  public void printDB() {
+	System.out.println("Nodes");
+	for (Node n: nodes){
+		System.out.println(n.toString());
+		for (Node s :edges.get(n)){
+			System.out.println("\t" + s.toString());
+		}
+	}
   }
 }
