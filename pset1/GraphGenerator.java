@@ -50,7 +50,9 @@ public class GraphGenerator {
         	cfg.addEdge(position, m, jc, npos, m, jc);
         }
         
-        if ((instr_next != null) && (instr.toString().indexOf("goto") == -1)){
+        if ((instr_next != null) &&
+        	(instr.toString().indexOf("goto") == -1) &&
+        	(instr.toString().indexOf("return") == -1)){
             int nextPosition = instr_next.getPosition();
             cfg.addEdge(position, m, jc, nextPosition, m, jc);
         }
