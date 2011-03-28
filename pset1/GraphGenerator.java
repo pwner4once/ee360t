@@ -36,13 +36,21 @@ public class GraphGenerator {
         
         // if statement
         BranchInstruction bi = null;
-        if (instr.toString().indexOf("if") != -1){
+//        if (instr.toString().indexOf("goto") != -1){
+//        	bi = (BranchInstruction) instr;
+//        	InstructionHandle if_ih = bi.getTarget();
+//        	int imm_pos = if_ih.getPosition();
+//        	int a = if_ih.getPosition(); 
+//        	cfg.addEdge(position, m, jc, if_ih.getPosition(), m, jc);
+//        }
+        if (instr instanceof BranchInstruction){
         	bi = (BranchInstruction) instr;
         	InstructionHandle if_ih = bi.getTarget();
-        	cfg.addEdge(position, m, jc, if_ih.getPosition(), m, jc);
+;        	int npos = if_ih.getPosition();
+        	cfg.addEdge(position, m, jc, npos, m, jc);
         }
         
-        if (instr_next != null){
+        if ((instr_next != null) && (instr.toString().indexOf("goto") == -1)){
             int nextPosition = instr_next.getPosition();
             cfg.addEdge(position, m, jc, nextPosition, m, jc);
         }
