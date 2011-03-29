@@ -1,0 +1,26 @@
+Compiled from "C.java"
+public class pset1.C extends java.lang.Object{
+public pset1.C();
+  Code:
+   0:	aload_0
+   1:	invokespecial	#1; //Method java/lang/Object."<init>":()V
+   4:	return
+
+int max(int, int);
+  Code:
+   0:	aload_0
+   1:	invokevirtual	#2; //Method stuff:()V
+   4:	iload_1
+   5:	iload_2
+   6:	if_icmpge	11
+   9:	iload_2
+   10:	ireturn
+   11:	iload_1
+   12:	ireturn
+
+public void stuff();
+  Code:
+   0:	return
+
+}
+

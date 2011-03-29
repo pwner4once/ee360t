@@ -1,0 +1,60 @@
+Nodes
+pset1.Test2.<init>()V: 0
+  pset1.Test2.<init>()V: 1
+pset1.Test2.<init>()V: 1
+  pset1.Test2.<init>()V: 4
+pset1.Test2.<init>()V: 4
+pset1.Test2.method1(II)I: 7
+  pset1.Test2.method1(II)I: 10
+  pset1.Test2.method1(II)I: 15
+pset1.Test2.method2(II)I: 6
+  pset1.Test2.method2(II)I: 7
+pset1.Test2.method2(II)I: 7
+  pset1.Test2.method2(II)I: 8
+pset1.Test2.method2(II)I: 8
+  pset1.Test2.method2(II)I: 9
+pset1.Test2.method2(II)I: 9
+  pset1.Test2.method2(II)I: 12
+pset1.Test2.method1(II)I: 10
+  pset1.Test2.method1(II)I: 11
+pset1.Test2.method1(II)I: 11
+  pset1.Test2.method1(II)I: 12
+pset1.Test2.method1(II)I: 12
+  pset1.Test2.method1(II)I: 13
+pset1.Test2.method1(II)I: 13
+  pset1.Test2.method1(II)I: 14
+pset1.Test2.method2(II)I: 12
+  pset1.Test2.method2(II)I: 13
+pset1.Test2.method2(II)I: 13
+  pset1.Test2.method2(II)I: 16
+  pset1.Test2.method2(II)I: 5
+pset1.Test2.method1(II)I: 14
+pset1.Test2.method1(II)I: 15
+  pset1.Test2.method1(II)I: 16
+pset1.Test2.method1(II)I: 16
+  pset1.Test2.method1(II)I: 17
+pset1.Test2.method2(II)I: 16
+  pset1.Test2.method2(II)I: 17
+pset1.Test2.method1(II)I: 17
+  pset1.Test2.method1(II)I: 18
+pset1.Test2.method2(II)I: 17
+pset1.Test2.method1(II)I: 18
+pset1.Test2.method1(II)I: 0
+  pset1.Test2.method1(II)I: 1
+pset1.Test2.method2(II)I: 1
+  pset1.Test2.method2(II)I: 2
+pset1.Test2.method1(II)I: 1
+  pset1.Test2.method1(II)I: 4
+  pset1.Test2.method1(II)I: 6
+pset1.Test2.method2(II)I: 0
+  pset1.Test2.method2(II)I: 1
+pset1.Test2.method1(II)I: 4
+  pset1.Test2.method1(II)I: 5
+pset1.Test2.method2(II)I: 2
+  pset1.Test2.method2(II)I: 12
+pset1.Test2.method1(II)I: 6
+  pset1.Test2.method1(II)I: 7
+pset1.Test2.method2(II)I: 5
+  pset1.Test2.method2(II)I: 6
+pset1.Test2.method1(II)I: 5
+
