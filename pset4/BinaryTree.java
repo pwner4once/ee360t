@@ -1,5 +1,9 @@
 package pset4;
 
+
+import gov.nasa.jpf.jvm.Verify;
+
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -35,9 +39,31 @@ public class BinaryTree {
 	}
 	
 	void filterBasedGenerator(int n){
-		Node[] nodes = new Node[n];
+		
+		// allocate objects
+		BinaryTree l = new BinaryTree();
+		BinaryTree.Node[] nodes = new Node[n]; // null counts as valid 'node'
+		int thisNode = Verify.getInt(0, n-1);
+		nodes[thisNode] = new Node();
+		
+		// set field domain
+		ArrayList<Node> nodeDomain = new ArrayList<Node>();
+		nodeDomain.add(null);
+		for (Node node: nodes){
+			nodeDomain.add(node);
+		}
+ 
+		// assign field values non-deterministically
+		l.root = nodeDomain.get(Verify.getInt(0, n+1));
+		l.size = Verify.getInt(0, n);
+		nodes[thisNode].left  = nodeDomain.get(Verify.getInt(0, n+1));
+		nodes[thisNode].right = nodeDomain.get(Verify.getInt(0, n+1));
 		
 		
+		// run repOk to check validity and output if valid
+		if (l.repOk()){
+			// print out valid nodes?
+		}
 	}
 }
 
