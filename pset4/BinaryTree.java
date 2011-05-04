@@ -1,4 +1,4 @@
-package pset4;
+
 
 
 import gov.nasa.jpf.jvm.Verify;
@@ -13,12 +13,18 @@ public class BinaryTree {
 	Node root;
 	int size;
 	
+	public static void main(String args[]){
+		(new BinaryTree()).filterBasedGenerator(3);
+		
+	}
+	
 	static class Node {
 		Node left, right;
+		String name = null; 
 	}
 	
 	public boolean repOk(){
-		if(root==null) return size ==0; // empty tree has size 0
+		if(root==null) return size == 0; // empty tree has size 0
 		Set<Node> visited = new HashSet<Node>(); visited.add(root);
 		List<Node> workList = new LinkedList<Node>(); workList.add(root);
 		while(!workList.isEmpty()){
@@ -37,14 +43,20 @@ public class BinaryTree {
 		return true;
 		
 	}
-	
-	void filterBasedGenerator(int n){
+	/*
+	 * part b generated 164 repOk'ed results frmo 3 nodes
+	 */
+	public void filterBasedGenerator(int n){
 		
+		Verify.resetCounter(0);
 		// allocate objects
-		BinaryTree l = new BinaryTree();
+		BinaryTree header = new BinaryTree();
 		BinaryTree.Node[] nodes = new Node[n]; // null counts as valid 'node'
 		int thisNode = Verify.getInt(0, n-1);
-		nodes[thisNode] = new Node();
+		for (int i = 0; i<nodes.length; i++){
+			nodes[i] = new Node();
+			nodes[i].name = Character.toString((char)('A' + i));
+		}
 		
 		// set field domain
 		ArrayList<Node> nodeDomain = new ArrayList<Node>();
@@ -52,17 +64,45 @@ public class BinaryTree {
 		for (Node node: nodes){
 			nodeDomain.add(node);
 		}
- 
+		
 		// assign field values non-deterministically
-		l.root = nodeDomain.get(Verify.getInt(0, n+1));
-		l.size = Verify.getInt(0, n);
-		nodes[thisNode].left  = nodeDomain.get(Verify.getInt(0, n+1));
-		nodes[thisNode].right = nodeDomain.get(Verify.getInt(0, n+1));
+		int maxIndex = nodeDomain.size() - 1;
+		header.root = nodeDomain.get(Verify.getInt(0, maxIndex));
+		header.size = Verify.getInt(0, n);
+		nodes[thisNode].left  = nodeDomain.get(Verify.getInt(0, maxIndex));
+		nodes[thisNode].right = nodeDomain.get(Verify.getInt(0, maxIndex));
 		
 		
 		// run repOk to check validity and output if valid
-		if (l.repOk()){
-			// print out valid nodes?
+		
+		if (header.repOk()){
+			System.out.println(Verify.getCounter(0));
+			System.out.println("root\tsize");
+			if (header.root == null){
+				System.out.println("null" + "\t" + header.size);
+			} else {
+				System.out.println(header.root.name + "\t" + header.size);
+			}
+			
+			
+			System.out.println("node\tleft\tright");
+			for (Node aa: nodes){
+				System.out.print(aa.name + "\t");
+				if (aa.left!= null){
+					System.out.print(aa.left.name);
+				} else {
+					System.out.print("null");
+				}
+				System.out.print("\t");
+				if (aa.right!= null){
+					System.out.print(aa.right.name);
+				} else {
+					System.out.print("null");
+				}
+				System.out.println();
+
+			}
+			Verify.incrementCounter(0);
 		}
 	}
 }
